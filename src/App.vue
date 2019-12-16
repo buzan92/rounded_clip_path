@@ -15,7 +15,7 @@
       @set_points_quantity="SET_POINTS_QUANTITY"
       v-bind="sidebar_props"
     />
-    <Test />
+    <Debug v-if="is_dev" />
     <h3>{{clip_path}}</h3>
   </div>
 </template>
@@ -29,7 +29,7 @@ import {
 import Field from './components/field';
 import Point from './components/point';
 import Sidebar from './components/sidebar';
-import Test from './components/test';
+import Debug from './components/debug';
 
 export default {
   name: 'app',
@@ -37,7 +37,7 @@ export default {
     Field,
     Point,
     Sidebar,
-    Test,
+    Debug,
   },
   computed: {
     ...mapState([
@@ -63,6 +63,7 @@ export default {
       corner_radius,
       points_quantity,
     }),
+    is_dev: () => process.env.NODE_ENV === 'development',
   },
   methods: {
     ...mapMutations([

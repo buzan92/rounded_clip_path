@@ -26,6 +26,7 @@ import { mapState } from 'vuex';
 import libs         from '../libs';
 
 export default {
+  name: 'debug',
   data: () => ({
     i: 0,
   }),

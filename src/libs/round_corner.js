@@ -88,7 +88,7 @@ const round_corner_points = (p1, p2, p3, corner_radius, points_quantity) => {
       const O = calc_circle_intersection(A, B, corner_radius, corner_radius);
 
       dots.push(
-        { ...p1, title: 'p1' },
+        // { ...p1, title: 'p1' },
         { ...A, title: 'A' },
       );
     
@@ -111,7 +111,7 @@ const round_corner_points = (p1, p2, p3, corner_radius, points_quantity) => {
       const sector_angle = calc_angle(A, O, B);
 
       dots.push(
-        { ...p1, title: 'p1' },
+        // { ...p1, title: 'p1' },
         { ...A, title: 'A' },
       );
       

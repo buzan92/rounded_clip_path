@@ -1,4 +1,5 @@
-# clip_path
+# rounded_clip_path
+Generate values for CSS clip-path property with rounded corners. You can specify circle radius and points quantity used to build circle.
 
 ## Project setup
 ```
@@ -15,15 +16,3 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

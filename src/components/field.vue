@@ -25,18 +25,16 @@ export default {
       clipPath: `polygon(${clip_path})`,
     }),
   },
-  // mounted() {
-  //   console.log('mounted field', this.$refs.field);
-  //   this.$emit('field_mounted');
-  // },
+  mounted() {
+    this.$emit('field_mounted', this.$refs.field);
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .field {
-  // position: relative;
-  // background-color: #808080;
-  border: 1px solid #333333;
+  position: relative;
+  border: 1px solid #e5e5e5;
 }
 
 .clip_path {

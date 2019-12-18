@@ -21,12 +21,11 @@ export default new Vuex.Store({
     ],
   },
   getters: {
-    clip_path: ({ field_x, field_y, field_width, field_height, points, corner_radius, points_quantity }) => {
+    clip_path: ({ field_width, field_height, points, corner_radius, points_quantity }) => {
       const rounded_points = lib.make_points(points, corner_radius, points_quantity);
-      console.log('rounded_points:', rounded_points);
       const res = rounded_points.reduce((acc, point) => {
-        const x = (point.x - field_x) / field_width * 100;
-        const y = (point.y - field_y) / field_height * 100;
+        const x = point.x / field_width * 100;
+        const y = point.y / field_height * 100;
         return `${acc} ${x.toFixed(2)}% ${y.toFixed(2)}%,`;
       }, '');
 
@@ -35,6 +34,12 @@ export default new Vuex.Store({
 
   },
   mutations: {
+    SET_FIELD_X: (state, val) => {
+      state.field_x = val;
+    },
+    SET_FIELD_Y: (state, val) => {
+      state.field_y = val;
+    },
     SET_FIELD_WIDTH: (state, val) => {
       state.field_width = val;
     },
@@ -50,15 +55,15 @@ export default new Vuex.Store({
     SET_POINT_COORDS: (state, val) => {
       const { field_x, field_y, field_width, field_height } = state;
       const { x, y, idx } = val;
-      if (x < field_x) val.x = field_x;
-      if (x > field_x + field_width) val.x = field_x + field_width;
-      if (y < field_y) val.y = field_y;
-      if (y > field_y + field_height) val.y = field_y + field_height;
+      if (x < field_x) { val.x = field_x }
+      if (x > field_x + field_width) { val.x = field_x + field_width }
+      if (y < field_y) { val.y = field_y }
+      if (y > field_y + field_height) { val.y = field_y + field_height; }
+
+      val.x -= field_x;
+      val.y -= field_y;
       Object.assign(state.points[idx], val);
     },
-    // UPDATE_COORDS: (state, val) => {
-    //   const { x, y, idx } = val;
-    // },
   },
   actions: {
   },

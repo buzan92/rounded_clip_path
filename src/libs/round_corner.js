@@ -21,11 +21,10 @@ const calc_angle = (a, b, c) => {
 const calc_circle_intersection = (o1, o2, r1, r2) => {
   const d = Math.sqrt(Math.pow(o1.x - o2.x, 2) + Math.pow(o1.y - o2.y, 2));
   if (d > r1 + r2 || d < Math.abs(r1 - r2)) {
-    console.log('no intersection');
     return {};
   }
   if (Math.abs(d - (r1 - r2)) < 0.000001) {
-    console.log('Only one point. is zero?', Math.abs(d - (r1 - r2)));
+    // console.log('Only one point. is zero?', Math.abs(d - (r1 - r2)));
     const x3 = (o1.x + o2.x) / 2;
     const y3 = (o1.y + o2.y) / 2;
     return { x: x3, y: y3 };

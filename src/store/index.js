@@ -23,7 +23,6 @@ export default new Vuex.Store({
   getters: {
     clip_path: ({ field_x, field_y, field_width, field_height, points, corner_radius, points_quantity }) => {
       const rounded_points = lib.make_points(points, corner_radius, points_quantity);
-      console.log('rounded_points:', rounded_points);
       const res = rounded_points.reduce((acc, point) => {
         const x = (point.x - field_x) / field_width * 100;
         const y = (point.y - field_y) / field_height * 100;

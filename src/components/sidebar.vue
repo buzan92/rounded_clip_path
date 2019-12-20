@@ -7,10 +7,25 @@
     height:
     <input v-model.number="field_height_model" type="number">px
     <br><br>
+    background image url:
+    <input v-model="field_image_model">
+    <br><br>
     radius:
     <input v-model.number="corner_radius_model" type="number">px
     point's quantity:
     <input v-model.number="points_quantity_model" type="number">
+    <br><br>
+    <button
+      @click="$emit('add_point')"
+    >
+    add point
+    </button>
+    <button
+      :disabled="sides <= 3"
+      @click="$emit('remove_point')"
+    >
+    remove point
+    </button>
   </div>
 </template>
 
@@ -18,10 +33,12 @@
 export default {
   name: 'sidebar',
   props: {
-    field_width : [String, Number],
-    field_height: [String, Number],
-    corner_radius: [String, Number],
-    points_quantity: [String, Number],
+    field_width : Number,
+    field_height: Number,
+    field_image : String,
+    corner_radius: Number,
+    points_quantity: Number,
+    sides: Number,
   },
   computed: {
     field_width_model: {
@@ -32,13 +49,17 @@ export default {
       get: ({ field_height }) => field_height,
       set: function(val) { this.$emit('set_field_height', val) },
     },
-    corner_radius_model: {
-      get: ({ corner_radius }) => corner_radius,
-      set: function(val) { this.$emit('set_corner_radius', val) },
+    field_image_model: {
+      get: ({ field_image }) => field_image,
+      set: function(val) { this.$emit('set_field_image', val) },
     },
     points_quantity_model: {
       get: ({ points_quantity }) => points_quantity,
       set: function(val) { this.$emit('set_points_quantity', val) },
+    },
+    corner_radius_model: {
+      get: ({ corner_radius }) => corner_radius,
+      set: function(val) { this.$emit('set_corner_radius', val) },
     },
   },
 };

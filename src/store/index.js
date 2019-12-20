@@ -31,7 +31,6 @@ export default new Vuex.Store({
 
       return res.slice(0, -1);
     },
-
   },
   mutations: {
     SET_FIELD_X: (state, val) => {
@@ -45,6 +44,9 @@ export default new Vuex.Store({
     },
     SET_FIELD_HEIGHT: (state, val) => {
       state.field_height = val;
+    },
+    SET_FIELD_IMAGE: (state, val) => {
+      state.field_image = val;
     },
     SET_CORNER_RADIUS: (state, val) => {
       state.corner_radius = val;
@@ -63,6 +65,17 @@ export default new Vuex.Store({
       val.x -= field_x;
       val.y -= field_y;
       Object.assign(state.points[idx], val);
+    },
+    ADD_POINT: (state) => {
+      const first = state.points[0];
+      const last = state.points[state.points.length - 1];
+      const x = (first.x - last.x) / 2 + last.x;
+      const y = (first.y - last.y) / 2 + last.y;
+      state.points.push({ x, y });
+    },
+    REMOVE_POINT: (state) => {
+      const { points } = state;
+      state.points.splice(points.length - 1, 1);
     },
   },
   actions: {

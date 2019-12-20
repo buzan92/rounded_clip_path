@@ -13,13 +13,16 @@
         <Sidebar
           @set_field_width="SET_FIELD_WIDTH"
           @set_field_height="SET_FIELD_HEIGHT"
+          @set_field_image="SET_FIELD_IMAGE"
           @set_corner_radius="SET_CORNER_RADIUS"
           @set_points_quantity="SET_POINTS_QUANTITY"
+          @add_point="ADD_POINT"
+          @remove_point="REMOVE_POINT"
           v-bind="sidebar_props"
         />
-        <Debug v-if="is_dev" />
-        <h3>{{clip_path}}</h3>
-        <button class="options-btn"></button>
+        <Result v-bind="result_props" />
+        <Debug v-if="is_dev && false" />
+        <!-- <button class="options-btn"></button> -->
     </main>
     <!-- <footer /> -->
   </div>
@@ -36,6 +39,7 @@ import Field from './components/field';
 import Point from './components/point';
 import Sidebar from './components/sidebar';
 import Debug from './components/debug';
+import Result from './components/result';
 
 export default {
   name: 'app',
@@ -45,6 +49,7 @@ export default {
     Point,
     Sidebar,
     Debug,
+    Result,
   },
   computed: {
     ...mapState([
@@ -65,10 +70,14 @@ export default {
       field_image,
       clip_path,
     }),
-    sidebar_props: ({ field_props, corner_radius, points_quantity }) => ({
-      ...field_props,
+    sidebar_props: ({ field_props, corner_radius, points_quantity, points }) => ({
+      ...field_props, // TODO: clip-path unnecessary
       corner_radius,
       points_quantity,
+      sides: points.length,
+    }),
+    result_props: ({ clip_path }) => ({
+      clip_path,
     }),
     is_dev: () => process.env.NODE_ENV === 'development',
   },
@@ -78,9 +87,12 @@ export default {
       'SET_FIELD_Y',
       'SET_FIELD_WIDTH',
       'SET_FIELD_HEIGHT',
+      'SET_FIELD_IMAGE',
       'SET_CORNER_RADIUS',
       'SET_POINTS_QUANTITY',
       'SET_POINT_COORDS',
+      'ADD_POINT',
+      'REMOVE_POINT',
     ]),
     field_mounted_handle(field) {
       const { x, y } = field.getBoundingClientRect();

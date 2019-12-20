@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     drag_handler(evt) {
-      const { clientX: x, clientY: y } = evt;
+      const { pageX: x, pageY: y } = evt;
       if (x && y) {
         this.$emit('set_point_coords', { x, y, idx: this.idx });
       }

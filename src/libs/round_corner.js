@@ -27,7 +27,7 @@ const calc_circle_intersection = (o1, o2, r1, r2) => {
     // console.log('Only one point. is zero?', Math.abs(d - (r1 - r2)));
     const x3 = (o1.x + o2.x) / 2;
     const y3 = (o1.y + o2.y) / 2;
-    return { x: x3, y: y3 };
+    return { x : x3, y : y3 };
   }
 
   const b = (Math.pow(r2, 2) - Math.pow(r1, 2) + Math.pow(d, 2)) / (2 * d);
@@ -41,14 +41,14 @@ const calc_circle_intersection = (o1, o2, r1, r2) => {
   // const x4 = x + (y - o2.y) * h / b;
   // const y4 = y - (x - o2.x) * h / b;
 
-  return { x: x3, y: y3 };
-}
+  return { x : x3, y : y3 };
+};
 
 const rotate_point = (a, b, angle) => {
-  const temp_a = { x: a.x - b.x, y: a.y - b.y };
+  const temp_a = { x : a.x - b.x, y : a.y - b.y };
   const x1 = temp_a.x * Math.cos(angle) - temp_a.y * Math.sin(angle);
   const y1 = temp_a.x * Math.sin(angle) + temp_a.y * Math.cos(angle);
-  return { x: x1 + b.x , y: y1 + b.y };
+  return { x : x1 + b.x , y : y1 + b.y };
 };
 
 const calc_line_equation = (a, b, d) => {
@@ -75,59 +75,59 @@ const calc_perpendicular_point = (a, b, O) => {
   const x = (-A * B * O.y + Math.pow(B, 2) * O.x - A * C) / (Math.pow(A, 2) + Math.pow(B, 2));
   const y = (-A * x - C) / B;
   return { x, y };
-}
+};
 
 const round_corner_points = (p1, p2, p3, corner_radius, points_quantity) => {
-  let dots = [];
+  const dots = [];
   const corner_angle = calc_angle(p1, p2, p3);
 
   if (corner_angle === Math.PI / 2) {
-      const A = calc_point_on_line(p2, p1, corner_radius);
-      const B = calc_point_on_line(p2, p3, corner_radius);
-      const O = calc_circle_intersection(A, B, corner_radius, corner_radius);
+    const A = calc_point_on_line(p2, p1, corner_radius);
+    const B = calc_point_on_line(p2, p3, corner_radius);
+    const O = calc_circle_intersection(A, B, corner_radius, corner_radius);
 
-      dots.push(
-        // { ...p1, title: 'p1' },
-        { ...A, title: 'A' },
-      );
+    dots.push(
+      // { ...p1, title: 'p1' },
+      { ...A, title : 'A' },
+    );
     
-      for (let i = 1; i < points_quantity; i++) {
-        const new_point = rotate_point(B, O, corner_angle / points_quantity * i);
-        dots.push({...new_point, title: i});
-      }
-
-      dots.push(
-        { ...B, title: 'B' },
-      );
-    } else {
-      // const direction = true; // (p1.x < p3.x || p1.y < p3.y);
-      // console.log('direction', direction, 'ps: ', p1, p2, p3);
-      // direction ? -corner_radius : corner_radius
-      const O = calc_line_intersection(p1, p2, p3, -corner_radius);
-      const A = calc_perpendicular_point(p1, p2, O);
-      const B = calc_perpendicular_point(p2, p3, O);
-
-      const sector_angle = calc_angle(A, O, B);
-
-      dots.push(
-        // { ...p1, title: 'p1' },
-        { ...A, title: 'A' },
-      );
-      
-      for (let i = 1; i < points_quantity; i++) {
-        // const rotated_point = direction ? A : B;
-        const new_point = rotate_point(A, O, sector_angle / points_quantity * i);
-        dots.push({...new_point, title: i});
-      }
-
-      dots.push(
-        { ...B, title: 'B' },
-        // { ...p2, title: 'p2' }, // TODO: remove
-        // { ...p3, title: 'p3' }, // TODO: remove
-      );
+    for (let i = 1; i < points_quantity; i++) {
+      const new_point = rotate_point(B, O, corner_angle / points_quantity * i);
+      dots.push({...new_point, title : i});
     }
-    return dots;
-}
+
+    dots.push(
+      { ...B, title : 'B' },
+    );
+  } else {
+    // const direction = true; // (p1.x < p3.x || p1.y < p3.y);
+    // console.log('direction', direction, 'ps: ', p1, p2, p3);
+    // direction ? -corner_radius : corner_radius
+    const O = calc_line_intersection(p1, p2, p3, -corner_radius);
+    const A = calc_perpendicular_point(p1, p2, O);
+    const B = calc_perpendicular_point(p2, p3, O);
+
+    const sector_angle = calc_angle(A, O, B);
+
+    dots.push(
+      // { ...p1, title: 'p1' },
+      { ...A, title : 'A' },
+    );
+      
+    for (let i = 1; i < points_quantity; i++) {
+      // const rotated_point = direction ? A : B;
+      const new_point = rotate_point(A, O, sector_angle / points_quantity * i);
+      dots.push({...new_point, title : i});
+    }
+
+    dots.push(
+      { ...B, title : 'B' },
+      // { ...p2, title: 'p2' }, // TODO: remove
+      // { ...p3, title: 'p3' }, // TODO: remove
+    );
+  }
+  return dots;
+};
 
 export const round_corner = (points, i, corner_radius, points_quantity) => {
   const p1 = points[i];
@@ -141,13 +141,13 @@ export const round_corner = (points, i, corner_radius, points_quantity) => {
     p3 = points[i + 2];
   }
   return round_corner_points(p1, p2, p3, corner_radius, points_quantity);
-}
+};
 
 export const make_points = (points, corner_radius, points_quantity) => {
-  let rounded_points = [];
+  const rounded_points = [];
   for(let i = 0; i < points.length; i++) {
     rounded_points.push(...round_corner(points, i, corner_radius, points_quantity));
   }
 
   return rounded_points;
-}
+};

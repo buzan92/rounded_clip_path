@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'result',
+  name : 'result',
   props: {
     clip_path: String,
   },
@@ -31,7 +31,7 @@ export default {
       this.textarea_height = this.$refs.textarea.scrollHeight;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

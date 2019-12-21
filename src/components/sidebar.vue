@@ -31,35 +31,35 @@
 
 <script>
 export default {
-  name: 'sidebar',
+  name : 'sidebar',
   props: {
-    field_width : Number,
-    field_height: Number,
-    field_image : String,
-    corner_radius: Number,
+    field_width    : Number,
+    field_height   : Number,
+    field_image    : String,
+    corner_radius  : Number,
     points_quantity: Number,
-    sides: Number,
+    sides          : Number,
   },
   computed: {
     field_width_model: {
       get: ({ field_width }) => field_width,
-      set: function(val) { this.$emit('set_field_width', val) },
+      set(val) { this.$emit('set_field_width', val) },
     },
     field_height_model: {
       get: ({ field_height }) => field_height,
-      set: function(val) { this.$emit('set_field_height', val) },
+      set(val) { this.$emit('set_field_height', val) },
     },
     field_image_model: {
       get: ({ field_image }) => field_image,
-      set: function(val) { this.$emit('set_field_image', val) },
+      set(val) { this.$emit('set_field_image', val) },
     },
     points_quantity_model: {
       get: ({ points_quantity }) => points_quantity,
-      set: function(val) { this.$emit('set_points_quantity', val) },
+      set(val) { this.$emit('set_points_quantity', val) },
     },
     corner_radius_model: {
       get: ({ corner_radius }) => corner_radius,
-      set: function(val) { this.$emit('set_corner_radius', val) },
+      set(val) { this.$emit('set_corner_radius', val) },
     },
   },
 };

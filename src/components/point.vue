@@ -13,11 +13,11 @@
 import lib from '../libs';
 
 export default {
-  name: 'point',
+  name : 'point',
   props: {
     idx: Number,
-    x: [Number, String],
-    y: [Number, String],
+    x  : [Number, String],
+    y  : [Number, String],
   },
   data: () => ({
     parent_rect: {},
@@ -25,8 +25,8 @@ export default {
   computed: {
     point_style: ({ x, y, idx }) => ({
       backgroundColor: lib.color[idx],
-      left: `${x}px`,
-      top: `${y}px`,
+      left           : `${x}px`,
+      top            : `${y}px`,
     }),
   },
   mounted() {
@@ -36,11 +36,11 @@ export default {
     drag_handler(evt) {
       const { pageX: x, pageY: y } = evt;
       if (x && y) {
-        this.$emit('set_point_coords', { x, y, idx: this.idx });
+        this.$emit('set_point_coords', { x, y, idx : this.idx });
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

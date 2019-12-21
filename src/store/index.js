@@ -1,23 +1,23 @@
-import Vue  from 'vue'
-import Vuex from 'vuex'
+import Vue  from 'vue';
+import Vuex from 'vuex';
 import lib  from '../libs';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    field_x: 10,
-    field_y: 10,
-    field_width: 500,
-    field_height: 300,
-    corner_radius: 30,
+    field_x        : 10,
+    field_y        : 10,
+    field_width    : 500,
+    field_height   : 300,
+    corner_radius  : 30,
     points_quantity: 7,
-    field_image: 'https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-900x600.jpg',
-    points: [
-      { x: 112, y: 49 },
-      { x: 373, y: 50 },
-      { x: 351, y: 197 },
-      { x: 134, y: 238 },
+    field_image    : 'https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-900x600.jpg',
+    points         : [
+      { x : 112, y : 49 },
+      { x : 373, y : 50 },
+      { x : 351, y : 197 },
+      { x : 134, y : 238 },
     ],
   },
   getters: {
@@ -60,7 +60,7 @@ export default new Vuex.Store({
       if (x < field_x) { val.x = field_x }
       if (x > field_x + field_width) { val.x = field_x + field_width }
       if (y < field_y) { val.y = field_y }
-      if (y > field_y + field_height) { val.y = field_y + field_height; }
+      if (y > field_y + field_height) { val.y = field_y + field_height }
 
       val.x -= field_x;
       val.y -= field_y;
@@ -82,4 +82,4 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+});

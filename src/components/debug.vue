@@ -44,7 +44,7 @@ export default {
     dot_style({x, y}) {
       return {
         left: `${x}px`,
-        top: `${y}px`,
+        top : `${y}px`,
       };
     },
   },

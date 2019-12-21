@@ -42,7 +42,7 @@ import Debug from './components/debug';
 import Result from './components/result';
 
 export default {
-  name: 'app',
+  name      : 'app',
   components: {
     Header,
     Field,
@@ -100,7 +100,7 @@ export default {
       this.SET_FIELD_Y(y);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

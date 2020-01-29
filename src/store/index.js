@@ -12,7 +12,7 @@ export default new Vuex.Store({
     field_height   : 300,
     corner_radius  : 30,
     points_quantity: 7,
-    field_image    : 'https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-900x600.jpg',
+    field_image    : 'http://apikabu.ru/img_n/2012-09_6/5yf.jpg',
     points         : [
       { x : 112, y : 49 },
       { x : 373, y : 50 },

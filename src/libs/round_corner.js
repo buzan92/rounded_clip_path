@@ -1,3 +1,5 @@
+const is_point = (point) => (point?.x || point?.x === 0) && (point?.y || point?.y === 0);
+
 const calc_point_on_line = (a, b, length) => {
   const ab_length = Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
   const k = length / ab_length;
@@ -63,17 +65,32 @@ const calc_line_equation = (a, b, d) => {
 };
 
 const calc_line_intersection = (a, b, c, radius) => {
-  const { A: A1, B: B1, C: C1 } = calc_line_equation(a, b, radius);
-  const { A: A2, B: B2, C: C2 } = calc_line_equation(b, c, radius);
+  const { A: A1, B: B1, C: C1 } = calc_line_equation(a, b, radius); // -1 0 470
+  const { A: A2, B: B2, C: C2 } = calc_line_equation(b, c, radius); // 0.16701946211651325 -0.9859535989458685 182.27634862550394
+  if (A1 / A2 === B1 / B2) {
+    console.log(':::::::::');
+  }
   const x = (-C2 * B1 + C1 * B2) / (-B2 * A1 + B1 * A2);
-  const y = (-A1 * x - C1) / B1;
+  const y = (-A1 * x - C1) / B1; // || (-A2 * x - C2) / B2;
+  if (!y) {
+    console.log('&&&XY B!', x, y, A1, B1, C1, '--', A2, B2, C2);
+    return { x, y : (-A2 * x - C2) / B2 };
+  }
+  console.log('XY B!', x, y, A1, B1, C1, '--', A2, B2, C2);
   return { x, y };
 };
 
 const calc_perpendicular_point = (a, b, O) => {
   const { A, B, C } = calc_line_equation(a, b, 0);
   const x = (-A * B * O.y + Math.pow(B, 2) * O.x - A * C) / (Math.pow(A, 2) + Math.pow(B, 2));
-  const y = (-A * x - C) / B;
+  const y = B ? (-A * x - C) / B : 0;
+  // if (!B) {
+  //   console.log('!B', y);
+  //   //y = 0;
+  // }
+  if (!x) {
+    console.log('TTT', A, B, C, x, y);
+  }
   return { x, y };
 };
 
@@ -81,31 +98,43 @@ const round_corner_points = (p1, p2, p3, corner_radius, points_quantity) => {
   const dots = [];
   const corner_angle = calc_angle(p1, p2, p3);
 
+  console.log('Q corner_angle', corner_angle);
+
   if (corner_angle === Math.PI / 2) {
-    const A = calc_point_on_line(p2, p1, corner_radius);
-    const B = calc_point_on_line(p2, p3, corner_radius);
-    const O = calc_circle_intersection(A, B, corner_radius, corner_radius);
+    // TODO: 
+    // const A = calc_point_on_line(p2, p1, corner_radius);
+    // const B = calc_point_on_line(p2, p3, corner_radius);
+    // const O = calc_circle_intersection(A, B, corner_radius, corner_radius);
 
-    dots.push(
-      // { ...p1, title: 'p1' },
-      { ...A, title : 'A' },
-    );
+    // dots.push(
+    //   // { ...p1, title: 'p1' },
+    //   { ...A, title : 'A' },
+    // );
     
-    for (let i = 1; i < points_quantity; i++) {
-      const new_point = rotate_point(B, O, corner_angle / points_quantity * i);
-      dots.push({...new_point, title : i});
-    }
+    // for (let i = 1; i < points_quantity; i++) {
+    //   const new_point = rotate_point(B, O, corner_angle / points_quantity * i);
+    //   dots.push({...new_point, title : i});
+    // }
 
-    dots.push(
-      { ...B, title : 'B' },
-    );
+    // dots.push(
+    //   { ...B, title : 'B' },
+    // );
   } else {
     // const direction = true; // (p1.x < p3.x || p1.y < p3.y);
     // console.log('direction', direction, 'ps: ', p1, p2, p3);
     // direction ? -corner_radius : corner_radius
     const O = calc_line_intersection(p1, p2, p3, -corner_radius);
-    const A = calc_perpendicular_point(p1, p2, O);
-    const B = calc_perpendicular_point(p2, p3, O);
+    if (!is_point(O)) {
+      console.log('OOO', O);
+    }
+    let A = calc_perpendicular_point(p1, p2, O);
+    let B = calc_perpendicular_point(p2, p3, O);
+    if (!is_point(A)) {
+      A = O;
+    }
+    if (!is_point(B)) {
+      B = O;
+    }
 
     const sector_angle = calc_angle(A, O, B);
 

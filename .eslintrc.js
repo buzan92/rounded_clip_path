@@ -33,7 +33,7 @@ module.exports = {
     'space-before-blocks'        : ['error', 'always'],
     'padded-blocks'              : ['error', 'never'],
     eqeqeq                       : 'warn',
-    'prefer-const'               : 'error',
+    'prefer-const'               : 'warn',
     'operator-linebreak'         : ['error', 'before'],
     'no-iterator'                : 'error',
     'no-duplicate-imports'       : 'error',
@@ -68,7 +68,7 @@ module.exports = {
  
     'new-parens'          : 'error',
     'block-spacing'       : 'error',
-    'no-const-assign'     : 'error',
+    'no-const-assign'     : 'warn',
     'no-this-before-super': 'warn',
     'no-reserved-keys'    : 0,
     'no-undef'            : 'error',
@@ -99,8 +99,7 @@ module.exports = {
         align: 'colon'
       }
     }],
-    // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'warn',
   },
 
 };

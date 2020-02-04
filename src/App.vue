@@ -34,6 +34,7 @@ import {
   mapGetters,
   mapMutations,
 } from 'vuex';
+import _debounce from 'lodash.debounce';
 import Header from './components/header';
 import Field from './components/field';
 import Point from './components/point';
@@ -51,6 +52,9 @@ export default {
     Debug,
     Result,
   },
+  data: () => ({
+    ref_field: {},
+  }),
   computed: {
     ...mapState([
       'field_width',
@@ -63,7 +67,6 @@ export default {
     ...mapGetters([
       'clip_path',
     ]),
-
     field_props: ({ field_width, field_height, field_image, clip_path }) => ({
       field_width,
       field_height,
@@ -81,6 +84,20 @@ export default {
     }),
     is_dev: () => process.env.NODE_ENV === 'development',
   },
+  mounted() {
+    window.addEventListener('resize', this.update_field);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.update_field);
+  },
+  watch: {
+    field_width() {
+      this.update_field();
+    },
+    field_height() {
+      this.update_field();
+    },
+  },
   methods: {
     ...mapMutations([
       'SET_FIELD_X',
@@ -95,10 +112,16 @@ export default {
       'REMOVE_POINT',
     ]),
     field_mounted_handle(field) {
-      const { x, y } = field.getBoundingClientRect();
-      this.SET_FIELD_X(x);
-      this.SET_FIELD_Y(y);
+      this.ref_field = field;
+      this.update_field();
     },
+    update_field: _debounce(function() {
+      const { x, y } = this.ref_field.getBoundingClientRect();
+      if (x && y) {
+        this.SET_FIELD_X(x);
+        this.SET_FIELD_Y(y);
+      }
+    }, 100), 
   },
 };
 </script>

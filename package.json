@@ -16,11 +16,13 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "lodash.debounce": "^4.0.8",
     "sanitize.css": "^11.0.0",
     "vue": "^2.6.10",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-service": "^4.0.0",

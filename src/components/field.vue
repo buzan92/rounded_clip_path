@@ -2,6 +2,7 @@
 <template>
   <div :style="field_style" ref="field" class="field">
     <slot></slot>
+    <div :style="clip_path_mask_style" class="clip_path-mask"></div>
     <div :style="clip_path_style" class="clip_path"></div>
   </div>
 </template>
@@ -20,6 +21,9 @@ export default {
       width : `${field_width}px`,
       height: `${field_height}px`,
     }),
+    clip_path_mask_style: ({ field_image }) => ({
+      backgroundImage: `url(${field_image})`,
+    }),
     clip_path_style: ({ field_image, clip_path }) => ({
       backgroundImage: `url(${field_image})`,
       clipPath       : `polygon(${clip_path})`,
@@ -37,7 +41,12 @@ export default {
   border: 1px solid #e5e5e5;
 }
 
-.clip_path {
+.clip_path-mask {
+  position: absolute;
+  opacity: 0.3;
+}
+
+.clip_path, .clip_path-mask {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
